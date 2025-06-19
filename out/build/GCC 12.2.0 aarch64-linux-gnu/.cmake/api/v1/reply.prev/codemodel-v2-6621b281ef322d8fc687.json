@@ -1,0 +1,120 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "Algorithm",
+					"childIndexes" : 
+					[
+						2
+					],
+					"jsonFile" : "directory-Algorithm-Debug-cb199d5fc91d385507ab.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Algorithm"
+				},
+				{
+					"build" : "Algorithm/CF",
+					"childIndexes" : 
+					[
+						3
+					],
+					"jsonFile" : "directory-Algorithm.CF-Debug-27d0da081bb4e1606808.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "Algorithm/CF"
+				},
+				{
+					"build" : "Algorithm/CF/kcf",
+					"jsonFile" : "directory-Algorithm.CF.kcf-Debug-185b1afc78084628fc23.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.1"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 0,
+					"source" : "Algorithm/CF/kcf",
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					],
+					"name" : "cv_track",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "cv_track::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cv_track-Debug-801a4885b36f27df6b8c.json",
+					"name" : "cv_track",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "kcf::@f897d5b4c91653c20fc9",
+					"jsonFile" : "target-kcf-Debug-2a106dc3ddd6438e210b.json",
+					"name" : "kcf",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/lin/codefile/demo/out/build/GCC 12.2.0 aarch64-linux-gnu",
+		"source" : "/home/lin/codefile/demo"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

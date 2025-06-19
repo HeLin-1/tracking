@@ -1,0 +1,1 @@
+/usr/bin/aarch64-linux-gnu-g++  -fopenmp -O3 -DNDEBUG CMakeFiles/zoom.dir/digitalZoom.cpp.o -o zoom 

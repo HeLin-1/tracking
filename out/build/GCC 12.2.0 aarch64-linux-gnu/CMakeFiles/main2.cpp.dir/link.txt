@@ -1,0 +1,1 @@
+/usr/bin/aarch64-linux-gnu-g++  -fopenmp -O3 -DNDEBUG CMakeFiles/main2.cpp.dir/func.cpp.o -o main2.cpp 
