@@ -27,9 +27,9 @@ void test_bytetrack(cv::Mat& frame, std::vector<detect_result>& results,BYTETrac
         std::vector<float> tlwh = output_stracks[i].tlwh;
         // std::cout << "tlwh[0], tlwh[1], tlwh[2], tlwh[3] : " << tlwh[0] << ", " << tlwh[1] << ", " << tlwh[2] << ", " << tlwh[3] << ", " << std::endl; 
 
-        // bool vertical = tlwh[2] / tlwh[3] > 1.6;
-        bool vertical = false;
-        if (tlwh[2] * tlwh[3] > 20 && !vertical) {
+        // bool vertical = tlwh[2] / tlwh[3] > 1.6; // 宽 / 高
+        bool vertical = true;
+        if (tlwh[2] * tlwh[3] > 20 && vertical) {
             cv::Scalar s = tracker.get_color(output_stracks[i].track_id);
             cv::putText(frame, cv::format("%d", output_stracks[i].track_id), cv::Point(tlwh[0], tlwh[1] - 5),
                     0, 0.6, cv::Scalar(0, 0, 255), 2, cv::LINE_AA);
@@ -179,8 +179,8 @@ int main(int argc, char **arg) {
         // string folderPath = "/mnt/d/Dataset/car/car-18/img"; //car-18 car-5
         // string folderPath = "/mnt/d/Dataset/car/car-4/img"; //car-18 car-5
 
-        folderPath += "car/car-4/img";
-        // folderPath += "car/car-18/img";
+        // folderPath += "car/car-4/img"; // 遮挡，无旋转
+        folderPath += "car/car-18/img";
     #endif
     string extension = ".jpg";// 图片格式
     
@@ -705,10 +705,10 @@ if(re_detect_cnt >= 0) {
             results[0].box = bbox;
 
 
-            if(maxVal > 0.999) {
-                m_retest = true;
-                m_match_cnt = 10; // 特征点匹配
-            }
+            // if(maxVal > 0.999) {
+            //     m_retest = true;
+            //     m_match_cnt = 10; // 特征点匹配
+            // }
 
             re_detect_cnt ++;
             if(re_detect_cnt > 90) {

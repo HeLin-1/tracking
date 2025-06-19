@@ -3,7 +3,7 @@
 
 BYTETracker::BYTETracker(int frame_rate, int track_buffer)
 {
-	track_thresh = 0.4; // 0.5
+	track_thresh = 0.5; // 0.5
 	high_thresh = 0.7; // 0.6
 	match_thresh = 0.8; // 0.8
 
@@ -82,8 +82,8 @@ BYTETracker::~BYTETracker()
 	int dist_size = 0, dist_size_size = 0;
 	dists = iou_distance(strack_pool, detections, dist_size, dist_size_size);
 
-	 std::vector< std::vector<int> > matches;
-	 std::vector<int> u_track, u_detection;
+	std::vector< std::vector<int> > matches;
+	std::vector<int> u_track, u_detection;
 	linear_assignment(dists, dist_size, dist_size_size, match_thresh, matches, u_track, u_detection);
 
 	for (int i = 0; i < matches.size(); i++)

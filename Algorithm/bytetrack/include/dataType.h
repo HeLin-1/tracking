@@ -12,18 +12,8 @@
 #include <Eigen/Core>
 #include <Eigen/Dense>
 
-
-const int k_feature_dim=512;//feature dim
-
-const std::string  k_feature_model_path ="/home/lin/Downloads/feature.onnx"; //  
-const std::string  k_detect_model_path ="/home/lin/codefile/Ne10_demo/yolov5s.onnx"; // yolov5s
-
-
 typedef Eigen::Matrix<float, 1, 4, Eigen::RowMajor> DETECTBOX;
 typedef Eigen::Matrix<float, -1, 4, Eigen::RowMajor> DETECTBOXSS;
-typedef Eigen::Matrix<float, 1, k_feature_dim, Eigen::RowMajor> FEATURE;
-typedef Eigen::Matrix<float, Eigen::Dynamic, k_feature_dim, Eigen::RowMajor> FEATURESS;
-//typedef std::vector<FEATURE> FEATURESS;
 
 //Kalmanfilter
 //typedef Eigen::Matrix<float, 8, 8, Eigen::RowMajor> KAL_FILTER;
@@ -37,8 +27,7 @@ using KAL_HDATA = std::pair<KAL_HMEAN, KAL_HCOVA>;
 //main
 using RESULT_DATA = std::pair<int, DETECTBOX>;
 
-//tracker:
-using TRACKER_DATA = std::pair<int, FEATURESS>;
+// tracker:
 using MATCH_DATA = std::pair<int, int>;
 typedef struct t{
     std::vector<MATCH_DATA> matches;
@@ -48,6 +37,3 @@ typedef struct t{
 
 //linear_assignment:
 typedef Eigen::Matrix<float, -1, -1, Eigen::RowMajor> DYNAMICM;
-
-
-
