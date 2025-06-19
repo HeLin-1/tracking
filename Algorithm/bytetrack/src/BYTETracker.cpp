@@ -10,7 +10,7 @@ BYTETracker::BYTETracker(int frame_rate, int track_buffer)
 	frame_id = 0;
 	max_time_lost = int(frame_rate / 30.0 * track_buffer);
 	std::cout << "max_time_lost = " << max_time_lost << std::endl;
-	max_time_lost = 20; // 20
+	// max_time_lost = 20; // 20
 }
 
 BYTETracker::~BYTETracker()

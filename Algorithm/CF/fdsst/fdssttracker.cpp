@@ -370,7 +370,7 @@ bool FDSSTTracker::update(cv::Mat image, cv::Rect &bbox)
     float _factor = std::min(1.f, exp(4.f * (peak_value - 0.6f)));
     std::cout << "peak_value = " << peak_value << std::endl;
     // static double pre_psr = m_psr;
-    if(m_psr < 12 || peak_value < 0.2) { // 15
+    if(m_psr < 15 || peak_value < 0.2) { // 15
         _factor = 0;
         std::cout << ".........................不更新......\n";
     }

@@ -40,8 +40,8 @@ void test_bytetrack(cv::Mat& frame, std::vector<detect_result>& results,BYTETrac
     }
 }
 //bytetrack
-int fps = 20; // 20
-BYTETracker bytetracker(fps, 30);
+int fps = 30; // 20
+BYTETracker bytetracker(fps, 60);
 std::vector<detect_result> results{{0, 0.0f, cv::Rect_<float>(0, 0, 0, 0)}};
 
 
@@ -229,8 +229,11 @@ int main(int argc, char **arg) {
         }
 
         // 动态更新
-        // cap.read(frame);
+#if IMG_SEQ
         frame = imread(imageFiles[++m_frameStartId], cv::IMREAD_GRAYSCALE);
+#else
+        cap.read(frame);
+#endif
         if(frame.channels() == 3)
             cv::cvtColor(frame, frame, cv::COLOR_BGR2GRAY);
         tempFrame = frame.clone();
@@ -652,7 +655,7 @@ if(re_detect_cnt >= 0) {
             // rectangle(showFrame, range, Scalar(255, 0, 100), 2, 1);
             drawCornerBox(showFrame, range, 1, Scalar(255, 0, 100));
 
-            Mat currentFrame = frame(range);
+            Mat currentFrame = frame(range).clone(); // keep continuous
 
             double maxVal;
             cv::Rect detectedROI;
@@ -669,12 +672,13 @@ if(re_detect_cnt >= 0) {
                 // detectedROI = detectAndMatch(templateImg_queueGray, currentFrameGray, maxVal);
                 // detectedROI = detectMatch(currentFrameGray(detectedROI), templateImg_queueGray, maxVal);
             } else {
-                cout << "maxValueImage isContinuous = " << maxValueImage.isContinuous() << endl;
-                cout << "currentFrame isContinuous = " << currentFrame.isContinuous() << endl;
                 // waitKey(0);
-                detectedROI = detectMatch_(currentFrame, maxValueImage, maxVal);
-                // detectedROI = detectAndMatch(maxValueImage, currentFrame, maxVal);
+                // if(!currentFrame.isContinuous()) {
+                //     currentFrame = currentFrame.clone();
+                // }
 
+                detectedROI = detectMatch_(currentFrame, maxValueImage, maxVal); // maxValueImage is continuous
+                // detectedROI = detectAndMatch(maxValueImage, currentFrame, maxVal);
             }
 #else
             // cv::Rect detectedROI = detectMatch(currentFrame, maxValueImage, maxVal);
@@ -702,7 +706,7 @@ if(re_detect_cnt >= 0) {
             // waitKey(0);
 
             results[0].confidence = maxVal;
-            results[0].box = bbox;
+            results[0].box = detectedROI;
 
 
             // if(maxVal > 0.999) {

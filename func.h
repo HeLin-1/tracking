@@ -24,7 +24,7 @@ using namespace std;
 namespace fs = std::filesystem;
 
 #define SCALE 1.5
-#define IMG_SEQ 1
+#define IMG_SEQ 0
 
 #define DEBUG_PRINT 1
 #define DATA 0
