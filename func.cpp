@@ -428,11 +428,12 @@ cv::Rect detectAndMatch(cv::Mat& img1, cv::Mat& img2, double &bestScore) {
     cout << "points1 matches: " << points1.size() << endl;
     cout << "keypoints1 matches: " << keypoints1.size() << endl;
 
+    float score = 0;
     // 判断目标是否存在
     if (inliersCount > 8) {
         cout << "Target detected in search region!" << endl;
-        bestScore = inliersCount / (keypoints1.size() * 0.7);
-        if(bestScore>1) bestScore = 1.0;
+        score = inliersCount / (keypoints1.size() * 0.7);
+        if(score>1) score = 1.0;
         // // 可视化：绘制内点匹配
         // vector<DMatch> inlierMatches;
         // for (size_t i = 0; i < goodMatches.size(); i++) {
@@ -446,7 +447,7 @@ cv::Rect detectAndMatch(cv::Mat& img1, cv::Mat& img2, double &bestScore) {
         // imshow("Inlier Matches", inliersimgMatches);
     } else {
         cout << "Target not found or insufficient inliers!" << endl;
-        bestScore = 0;
+        score = 0;
         return Rect{0, 0, img2.cols, img2.rows};
     }
 
@@ -480,7 +481,10 @@ cv::Rect detectAndMatch(cv::Mat& img1, cv::Mat& img2, double &bestScore) {
     int m_width = (sceneCorners[1] + sceneCorners[2] - sceneCorners[0] - sceneCorners[3]).x * 0.5;
     int m_height = (sceneCorners[2] + sceneCorners[3] - sceneCorners[0] - sceneCorners[1]).y * 0.5;
     cv::Rect m_rect(m_center.x - m_width/2, m_center.y - m_height/2, m_width, m_height);
+
+    if(score>0.32) bestScore = 1;
 #if DEBUG_PRINT_
+    cout << "score: " << score << endl;
     cout << "m_center: " << m_center << endl;
     cout << "m_rect: " << m_rect << endl;
     cout << "bestScore: " << bestScore << endl;

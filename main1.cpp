@@ -42,7 +42,7 @@ void test_bytetrack(cv::Mat& frame, std::vector<detect_result>& results,BYTETrac
 //bytetrack
 int fps = 20; // 20
 BYTETracker bytetracker(fps, 30);
-std::vector<detect_result> results;
+std::vector<detect_result> results{{0, 0.0f, cv::Rect_<float>(0, 0, 0, 0)}};
 
 
 #include <sys/select.h>
@@ -179,8 +179,8 @@ int main(int argc, char **arg) {
         // string folderPath = "/mnt/d/Dataset/car/car-18/img"; //car-18 car-5
         // string folderPath = "/mnt/d/Dataset/car/car-4/img"; //car-18 car-5
 
-        // folderPath += "car/car-4/img";
-        folderPath += "car/car-18/img";
+        folderPath += "car/car-4/img";
+        // folderPath += "car/car-18/img";
     #endif
     string extension = ".jpg";// 图片格式
     
@@ -531,7 +531,7 @@ int main(int argc, char **arg) {
 
 
         // detector->detect(frame, results);
-        // results[0].classId = 1;
+        results[0].classId = 1;
 
         if (m_tracker_success) {
             //  
@@ -609,8 +609,8 @@ int main(int argc, char **arg) {
             
             re_detect_cnt = 0;
 
-            // results[0].confidence = 1;
-            // results[0].box = bbox;
+            results[0].confidence = 1;
+            results[0].box = bbox;
 
         } else {
 #if 1
@@ -671,9 +671,9 @@ if(re_detect_cnt >= 0) {
             } else {
                 cout << "maxValueImage isContinuous = " << maxValueImage.isContinuous() << endl;
                 cout << "currentFrame isContinuous = " << currentFrame.isContinuous() << endl;
-                waitKey(0);
-                // detectedROI = detectMatch_(currentFrame, maxValueImage, maxVal);
-                detectedROI = detectAndMatch(maxValueImage, currentFrame, maxVal);
+                // waitKey(0);
+                detectedROI = detectMatch_(currentFrame, maxValueImage, maxVal);
+                // detectedROI = detectAndMatch(maxValueImage, currentFrame, maxVal);
 
             }
 #else
@@ -701,9 +701,14 @@ if(re_detect_cnt >= 0) {
             rec_time_ms.reset();
             // waitKey(0);
 
-            // results[0].confidence = maxVal;
-            // results[0].box = bbox;
+            results[0].confidence = maxVal;
+            results[0].box = bbox;
 
+
+            if(maxVal > 0.999) {
+                m_retest = true;
+                m_match_cnt = 10; // 特征点匹配
+            }
 
             re_detect_cnt ++;
             if(re_detect_cnt > 90) {
@@ -790,7 +795,7 @@ if(re_detect_cnt >= 0) {
         }
         }
 
-        // test_bytetrack(showFrame, results, bytetracker);
+        test_bytetrack(showFrame, results, bytetracker);
 
         // rectangle(showFrame, Rect{predictedPoint.x - bbox.width/2, predictedPoint.y - bbox.height/2, bbox.width, bbox.height},
         // Scalar(0, 255, 255), 2, 1); // 滤波预测框 黄色
